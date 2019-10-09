@@ -1,5 +1,5 @@
 public class Square extends Rectangle{
-    public Square();
+    public Square(){}
     public Square(double side){
         super(side, side);
     }
@@ -17,15 +17,19 @@ public class Square extends Rectangle{
         this.length = side;
     }
 
+    @Override
     public void setWidth(double side){
         this.width = side;
+        this.length = side;
     }
 
+    @Override
     public void setLength(double side){
+        this.width = side;
         this.length = side;
     }
 
     public String toString(){
-        return "Square[side=" + this.side + ",color="+ this.color + ",filled=" + this.filled + "]";
+        return "Square[side=" + this.width + ",color="+ this.color + ",filled=" + this.filled + "]";
     }
 }

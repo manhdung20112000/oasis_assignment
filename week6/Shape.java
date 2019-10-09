@@ -29,7 +29,7 @@ public abstract class Shape{
         return 0;
     }
 
-    public double getPerimter(){
+    public double getPerimeter(){
         return 0;
     }
 
