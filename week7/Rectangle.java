@@ -1,70 +1,62 @@
 import java.util.Objects;
 
-public class Rectangle extends Shape{
+public class Rectangle extends Shape {
+    protected Point topLeft ;
     protected double width;
     protected double length;
-    protected Point topLeft;
 
-    public Rectangle(){}
-    public Rectangle(double width, double length){
+    public Rectangle (){};
+
+    public Rectangle (double width , double length){
         this.width = width;
         this.length = length;
     }
 
-    public Rectangle(double width, double length, String color, boolean filled){
+    public Rectangle (double width , double length , String color , boolean filled){
         super(color, filled);
         this.width = width;
         this.length = length;
     }
 
-    public Rectangle(Point topLeft, double width, double length, String color, boolean filled){
+    public Rectangle (Point topLeft , double width , double length , String color , boolean filled){
         super(color, filled);
+        this.topLeft = topLeft;
         this.width = width;
         this.length = length;
-        this.topLeft = topLeft;
     }
 
-    public double getWidth(){
-        return this.width;
+    public double getWidth() { return width; }
+    public double getLength() { return length; }
+    public Point getTopLeft() { return topLeft; }
+    public void setWidth(double width) { this.width = width; }
+    public void setLength(double length) { this.length = length; }
+    public void setTopLeft(Point topLeft) { this.topLeft = topLeft; }
+
+    @Override
+    public double getArea() {
+        return (double) Math.round(width * length * 10) / 10;
     }
 
-    public void setWidth(double width){
-        this.width = width;
+    @Override
+    public double getPerimeter() {
+        return (double) Math.round(2 * (width + length) * 10) / 10;
     }
 
-    public double getLength(){
-        return this.length;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rectangle)) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(rectangle.width, width) == 0 && Double.compare(rectangle.length, length) == 0 && Objects.equals(topLeft, rectangle.topLeft);
     }
 
-    public void setLength(double length){
-        this.length = length;
+    @Override
+    public int hashCode() {
+        return Objects.hash(topLeft, width, length);
     }
 
-    public double getArea(){
-        return this.length*this.width;
-    }
-
-    public double getPerimeter(){
-        return this.length*2 + this.width*2;
-    }
-
-    public String toString(){
-        return "Rectangle[" + this.topLeft.toString() + "width=" + this.width + ",length=" + this.length + ",color="+ this.color + ",filled=" + this.filled + "]";
-    }
-
-    public Point getTopLeft(){
-        return this.topLeft;
-    }
-
-    public void setTopLeft(Point topLeft){
-        this.topLeft = topLeft;
-    }
-
-    public boolean equals(Object obj) {
-        return (this.topLeft.equals(obj.topLeft) && this.length == obj.length && this.width == obj.width);
-    }
-
-    public int hashCode(){
-        Objects.hash(this.length, this.width, this.topLeft);
+    @Override
+    public String toString() {
+        return "Rectangle[topLeft=" + topLeft + ",width=" + width + ",length=" + length + ",color=" + color + ",filled=" + filled + "]";
     }
 }

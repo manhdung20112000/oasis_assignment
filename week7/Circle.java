@@ -1,58 +1,63 @@
 import java.util.Objects;
 
-public class Circle extends Shape{
-    protected double radius;
+public class Circle extends Shape {
     protected Point center;
+    protected double radius;
 
-    public Circle(){}
-    public Circle(double radius){
-        this.radius = radius;
-    }
-    
-    public Circle(double radius, String color, boolean filled){
-        super(color, filled);
+    public Circle (){};
+
+    public Circle ( double radius ){
         this.radius = radius;
     }
 
-    public Circle(Point center, double radius, String color, boolean filled){
+    public Circle ( double radius , String color , boolean filled ){
         super(color, filled);
         this.radius = radius;
+    }
+    public Circle ( Point center , double radius , String color , boolean filled ){
+        super(color, filled);
+        this.center = center;
+        this.radius = radius;
+    }
+
+    public Point getCenter() {
+        return center;
+    }
+
+    public void setCenter(Point center) {
         this.center = center;
     }
 
-    public double getRadius(){
-        return this.radius;
+    public double getRadius() {
+        return radius;
     }
 
-    public void setRadius(double radius){
+    public void setRadius(double radius) {
         this.radius = radius;
     }
-
     public double getArea(){
-        return this.radius*this.radius*Math.PI;
+        return (double) Math.round(Math.PI * radius * radius * 10) / 10;
     }
 
-    public double getPerimeter(){
-        return this.radius*2*Math.PI;
+    @Override
+    public double getPerimeter() {
+        return (double) Math.round(2 * Math.PI * radius * 10) / 10;
     }
 
-    public String toString(){
-        return "Circle[center=" + this.center.toString() + "radius=" + this.radius + ",color="+ this.color + ",filled=" + this.filled + "]";
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Circle)) return false;
+        Circle circle = (Circle) o;
+        return Double.compare(circle.radius, radius) == 0 && Objects.equals(circle.center, center);
     }
 
-    public boolean equals(Object obj){
-        return (this.radius == obj.radius && this.center == obj.center);
+    @Override
+    public int hashCode() {
+        return Objects.hash(center, radius);
     }
 
-    public Point getCenter(){
-        return this.center;
+    public String toString () {
+        return "Circle[center=" + center + ",radius=" + radius + ",color=" + color + ",filled=" + filled +"]";
     }
-
-    public void setCenter(Point center){
-        this.center = center;
-    }
-
-    public int hashCode(){
-        return Objects.hash(this.radius, this.center);
-    }
-} 
+}

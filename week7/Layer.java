@@ -1,48 +1,52 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.util.Objects;
 
-/**
- * Layer
- */
-public class Layer {
-    private List<Shape> shapes;
-    public Layer() {
-        shapes = new ArrayList<Shape>();
+public class Square extends Rectangle {
+    public Square (){};
+
+    public Square ( double side){
+        super(side , side);
     }
-    public void addShape(Shape shape) {
-        shapes.add(shape);
+
+    public Square ( double side , String color , boolean filled ){
+        super(side , side);
+        this.color = color;
+        this.filled = filled;
     }
-    public void removeCircles() {
-        Predicate<Shape> checkIsCricle = (Shape shape) -> {
-            return shape instanceof Circle;
-        };
 
-        shapes.removeIf(checkIsCricle);
+    public Square ( Point topLeft , double side , String color , boolean filled){
+        super(side , side);
+        this.topLeft = topLeft;
+        this.color = color;
+        this.filled = filled;
     }
-    public String getInfo() {
-        StringBuilder info = new StringBuilder("Layer of crazy shapes: \n");
 
-        for(Shape shape: shapes) {
-            info.append(shape.toString());
-            info.append("\n");
-        }
-        return info.toString();
+    public double getSide (){
+        return getWidth();
     }
-    public void removeDuplicates() {
-        Set<Shape> setShapeContains = new HashSet<Shape>();
-        ArrayList<Shape> listShapeResult = new ArrayList<Shape>();
+    public void setSide( double side){
+        this.width = side;
+        this.length = side;
+    }
+    public void setWidth ( double side ){
+        super.setWidth(side);
+        this.length = side;
+    }
 
-        for(Shape shape: shapes) {
-            if (setShapeContains.contains(shape)) {
+    public void setLength ( double side ){
+        super.setLength(side);
+        this.width = side;
+    }
 
-            } else {
-                setShapeContains.add(shape);
-                listShapeResult.add(shape);
-            }
-        }
-        shapes = listShapeResult;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Square)) return false;
+        Square square = (Square) o;
+        return Double.compare(square.width, width) == 0 && Double.compare(square.length, length) == 0 && Objects.equals(topLeft, square.topLeft);
+    }
+
+    @Override
+    public String toString() {
+        return "Square[topLeft=" + topLeft + ",side=" + getSide() + ",color=" + color + ",filled=" + filled + "]";
     }
 }
